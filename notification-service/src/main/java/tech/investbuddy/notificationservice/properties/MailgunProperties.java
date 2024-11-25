@@ -1,14 +1,22 @@
 package tech.investbuddy.notificationservice.properties;
 
-import lombok.Data;
-import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
+import io.github.cdimascio.dotenv.Dotenv;
+
 @Component
-@ConfigurationProperties(prefix = "mailgun")
-@Data
 public class MailgunProperties {
-    private String apiKey;
-    private String domain;
-    private String baseUrl;
+    private final Dotenv dotenv = Dotenv.load();
+
+    public String getApiKey() {
+        return dotenv.get("MAILGUN_API_KEY");
+    }
+
+    public String getDomain() {
+        return dotenv.get("MAILGUN_DOMAIN");
+    }
+
+    public String getBaseUrl() {
+        return dotenv.get("MAILGUN_BASE_URL");
+    }
 }
